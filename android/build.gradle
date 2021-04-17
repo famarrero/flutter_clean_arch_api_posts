@@ -1,0 +1,43 @@
+buildscript {
+    ext.kotlin_version = '1.4.21'
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://maven.google.com" }
+
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-central/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/maven.google.com/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/repo.maven.apache.org/' }
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.1.3'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+        maven { url "https://maven.google.com" }
+
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-all/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/maven-central/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/maven.google.com/' }
+        maven { url 'http://nexus.prod.uci.cu/repository/repo.maven.apache.org/' }
+    }
+}
+
+rootProject.buildDir = '../build'
+subprojects {
+    project.buildDir = "${rootProject.buildDir}/${project.name}"
+}
+subprojects {
+    project.evaluationDependsOn(':app')
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
